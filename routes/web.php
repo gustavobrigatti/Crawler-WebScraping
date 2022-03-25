@@ -13,5 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'TesteController@index');
+Route::get('/', function () {
+    return redirect()->route('teste.index');
+});
+Route::resource('/teste', 'TesteController');
 
