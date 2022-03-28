@@ -6,7 +6,7 @@ use Goutte\Client;
 use Illuminate\Http\Request;
 use Symfony\Component\DomCrawler\Crawler;
 
-class TesteController
+class TesteController extends Controller
 {
     protected $mensagem;
 
