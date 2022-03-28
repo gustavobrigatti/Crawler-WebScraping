@@ -8,6 +8,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class TesteController
 {
+    protected $carros;
+
     public function index(){
         return view('index');
     }
@@ -24,11 +26,12 @@ class TesteController
             }
             $this->extractContactsFrom($crawler, $i);
         }
+        echo $this->carros;
     }
 
     public function extractContactsFrom(Crawler $crawler, $page){
         // Obtenção de todo o html da url passada e filtragem dos carros pala classe de cada <li>
-        echo "<h2>PÁGINA ".$page."</h2>";
+        $this->carros .= "<h2>PÁGINA ".$page."</h2>";
         $crawler->filter("[class='sc-1fcmfeb-2 fvbmlV']")->each(function (Crawler $carNode){
             $carro = [];
             // Obtenção das informações do anúncio de acordo com a classe de cada informação
@@ -41,11 +44,10 @@ class TesteController
                 $carro['infos'] = $infosNode->text();
                 $carro['price'] = $priceNode->text();
                 $carro['local'] = $localNode->text();
-                echo "Modelo: ".$carro['name']."<br>Informaçõe: ".$carro['infos']."<br>Preço: ".$carro['price']."<br>Local: ".$carro['local']."<br><br>";
+                $this->carros .= "Modelo: ".$carro['name']."<br>Informaçõe: ".$carro['infos']."<br>Preço: ".$carro['price']."<br>Local: ".$carro['local']."<br><br>";
             }catch (\Exception $e){
 
             }
-            //var_dump($carro);
         });
     }
 }
